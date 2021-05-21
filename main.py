@@ -52,12 +52,32 @@ def main():
     
     if logger():
         with open(settingsfile, 'r') as f:
-           settings = json.load(f)
-           f.close
+            global settings
+            settings = json.load(f)
+            f.close
         logger("Settings: " + str(settings))
+
+    with open(credentialsfile, 'r') as f:
+        global credentials
+        credentials = json.load(f)
+        f.close
+    
+    request()
     
    
+def request():
+    url = settings['protocol'] + credentials['host'] +"app/login"
+    querystring = {"target":"/iserv/exercise.csv?sort[by]=enddate&sort[dir]=DESC?"}
+    payload = "_username=" + credentials['username'] + "&_password=" + credentials['password']
+    headers = {
+    "User-Agent": "IServHelfer/0.1 (+https://github.com/Max-42/IServHelfer)",
+    "Content-Type": "application/x-www-form-urlencoded"
+    }
+    response = requests.request("POST", url, data=payload, headers=headers, params=querystring)
+    print(response.text)
 
+
+    
 
 
 
