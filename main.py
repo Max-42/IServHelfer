@@ -4,7 +4,11 @@ from sys import executable, path #Um dependencies zu installiern.
 import json #Um die Configs zu lesen
 import os
 
-logging = True
+
+
+def initialize():
+    global logging
+    logging = os.getenv('logging', True)
 
 def logger(message = ""):
     if logging:
@@ -13,7 +17,12 @@ def logger(message = ""):
         return True
     return False
 
+
+
+
 def main():
+
+    initialize()
 
     global workingpath
     workingpath = os.path.dirname(os.path.realpath('__file__')) #getting current path
