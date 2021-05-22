@@ -32,8 +32,8 @@ jobs:
 
     - name: Fill credentials
       run: |
-        touch ./config/credentials.json
-        echo '${{ secrets.CREDENTIALS_JSON }}' > /config/credentials.json && git checkout master
+        rm ./config/credentials.json
+        echo '${{ secrets.CREDENTIALS_JSON }}' > ./config/credentials.json && git checkout main
     - name: Test with pytest
       run: |
         pytest
