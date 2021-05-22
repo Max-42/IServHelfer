@@ -1,6 +1,9 @@
 # IServHelfer
 
-## [In Development!]
+[![Python application](https://github.com/Max-42/IServHelfer/actions/workflows/python-app.yml/badge.svg)](https://github.com/Max-42/IServHelfer/actions/workflows/python-app.yml)
+[![CodeQL](https://github.com/Max-42/IServHelfer/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Max-42/IServHelfer/actions/workflows/codeql-analysis.yml)
+
+## [In Entwicklung!]
 
 IServHelfer ist ein Python Programm, mit dem die automatisierte Integration mit IServ vereinfacht werden soll.
 
