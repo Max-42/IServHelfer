@@ -42,13 +42,13 @@ def main():
             json.dump(config, f)
             f.close
         
-        print("Exiting because if we had to create a settings file for you, the correct settings cannot yet be in there.")
-        exit(1)
+        print("WARNING we had to create a settings file for you, the correct settings maybe not yet be in there.")
+        
 
     #Zugangsdaten Datei anlegen
     if not os.path.isfile(credentialsfile):
         logger("Could not find the credentials file, creating one for you...")
-        config = {"_comment": "Make sure to NOT share this file! And please make sure to use correct JSON syntax.","host": "schule.de/iserv", "username": "vorname.nachname", "password":"yOUr-S€cuRe-P4§$w0RD" }
+        config = {"_comment": "Make sure to NOT share this file! And please make sure to use correct JSON syntax.","host": "schule.de/iserv", "username": "vorname.nachname", "password":"yOUr-SEcuRe-P4s5w0RD" }
 
         with open(credentialsfile, 'w', encoding='utf-8') as f:
             json.dump(config, f)
@@ -99,11 +99,6 @@ def request():
         logger(sys.exc_info()[1])
 
 
-    
-
-
-
-    
 
 if __name__ == '__main__':
     import sys, subprocess
@@ -128,5 +123,5 @@ Zum abbrechen CTRL+C drücken.")
         
     main()
 
-exit(0)
+
 
