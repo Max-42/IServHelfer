@@ -32,6 +32,7 @@ jobs:
 
     - name: Fill credentials
       run: |
+        mkdir ./config
         echo '${{ secrets.CREDENTIALS_JSON }}' > /config/credentials.json && git checkout master
     - name: Test with pytest
       run: |
