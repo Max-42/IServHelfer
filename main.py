@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 
-from sys import executable, path #Um dependencies zu installiern.
+from sys import exc_info, executable, path #Um dependencies zu installiern.
 import json #Um die Configs zu lesen
 import os
-import hashlib
+import hashlib #Um Hashes zu berechnen
+import sys
 
 
 
@@ -75,21 +76,27 @@ def main():
     
     if(hashlib.sha1(str(settingsfile).encode('utf-8')).hexdigest())== "720e0948396da23020a348be4d5a17dc44829ae1":
         print("You are using the default settings file please make sure to fill out this file.")
-        exit(1)
 
     request()
     
    
 def request():
-    url = settings['protocol'] + credentials['host'] +"app/login"
-    querystring = {"target":"/iserv/exercise.csv?sort[by]=enddate&sort[dir]=DESC?"}
-    payload = "_username=" + credentials['username'] + "&_password=" + credentials['password']
-    headers = {
-    "User-Agent": "IServHelfer/0.1 (+https://github.com/Max-42/IServHelfer)",
-    "Content-Type": "application/x-www-form-urlencoded"
-    }
-    response = requests.request("POST", url, data=payload, headers=headers, params=querystring)
-    print(response.text)
+    try:
+        url = settings['protocol'] + credentials['host'] +"app/login"
+        querystring = {"target":"/iserv/exercise.csv?sort[by]=enddate&sort[dir]=DESC?"}
+        payload = "_username=" + credentials['username'] + "&_password=" + credentials['password']
+        headers = {
+        "User-Agent": "IServHelfer/0.1 (+https://github.com/Max-42/IServHelfer)",
+        "Content-Type": "application/x-www-form-urlencoded"
+        }
+        response = requests.request("POST", url, data=payload, headers=headers, params=querystring, timeout=(10,30)) #timeout sets a connection timeout of 10 Sec. And a read timeout of 30 sec.
+        print(response.text)
+
+    except Exception:
+        if not logger():
+            print("The request failed for mor info make sure to enable logging")
+        logger("The request failed:")
+        logger(sys.exc_info()[1])
 
 
     
@@ -105,7 +112,7 @@ if __name__ == '__main__':
     try: 
         import requests
 
-    except:
+    except Exception:
         print("\"requests\" ist nicht installiert, versuche es in 10 Sekunden zu installieren. \n \
 Zum abbrechen CTRL+C drücken.")
         time.sleep(10)
@@ -116,7 +123,7 @@ Zum abbrechen CTRL+C drücken.")
             import requests
             print("requests wurde installiert")
 
-        except:
+        except Exception:
             print("Es ist ein Fehler aufgetreten die dependencies zu installieren versuche es manuell mit \"pip install -r requirements.txt\"")
         
     main()
