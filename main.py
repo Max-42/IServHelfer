@@ -192,7 +192,9 @@ def main():
             f.close
         
         print("Stoppe, weil eine Zugangsdatendatei für dich angelegt wurde. Die richtigen Zugangsdaten sind dort noch nicht enthalten.")
-        exit(1)
+        if (os.getenv("AM_I_IN_A_DOCKER_CONTAINER") == "Yes"):
+            print("Stope doch nicht da wir in einem Docker Container sind.")
+        else: exit(1)
 
     
     if logger():
