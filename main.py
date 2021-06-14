@@ -374,8 +374,8 @@ def cleanup():
     # sendtodiscord("Test","1","2","https://fls-hi.de/")
     verschluessele_pfad("cache","speicher",schluessel)
     # time.sleep(10)
-    #shutil.rmtree(os.path.join(workingpath,"cache"))
-    #shutil.rmtree(os.path.join(workingpath,"config"))
+    shutil.rmtree(os.path.join(workingpath,"cache"))
+    shutil.rmtree(os.path.join(workingpath,"config"))
 
 if __name__ == '__main__':
     #imports:
