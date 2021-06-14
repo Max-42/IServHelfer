@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+         <meta charset="utf-8">
+         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <title>DyrenDocs</title>
+         <link rel="stylesheet" href="./assets/css/main.css" />
+    </head>
+
+    <body>
+
+        <div id='content'>
+            <h1>IServHelfer</h1>
+            <p><img src="https://upload.oppisoft.de/x/Kry3WJ08fNuGY1ZX2Wm8R.svg" alt="Logo"></p>
+            <p><a href="https://github.com/Max-42/IServHelfer/actions/workflows/python-app.yml"><img src="https://github.com/Max-42/IServHelfer/actions/workflows/python-app.yml/badge.svg" alt="Python application"></a>
+            <a href="https://github.com/Max-42/IServHelfer/actions/workflows/codeql-analysis.yml"><img src="https://github.com/Max-42/IServHelfer/actions/workflows/codeql-analysis.yml/badge.svg" alt="CodeQL"></a></p>
+            <h2>Was ist der “IServ Helfer”?</h2>
+            <p>Der <strong>IServHelfer</strong> ist ein <a href="https://www.python.org/">Python</a> Programm, mit dem die automatisierte Integration mit <a href="https://iserv.de/portal/zielgruppen">IServ</a> vereinfacht werden soll.
+            Mit dem <strong>IServHelfer</strong> können Aufgaben aus dem <a href="https://iserv.de/doc/modules/exercise/">IServ Aufgaben Modul</a> an einen Discord Webhook gesendet werden.</p>
+            <p><a href="https://www.dev-insider.de/was-ist-ein-webhook-a-996681/">Webhooks Erklärung</a>
+            <a href="https://support.discord.com/hc/de/articles/228383668-Einleitung-in-Webhooks">Discord Webhooks</a></p>
+            
+            <h2>Woher die Idee?</h2>
+                <p>Das Ganze ist ein Schulprojekt daher auch die Idee die unsere Schulplattform (IServ) so zu automatisieren, sodass automatisiert Pushmitteilungen an bestimmte dritte Dienste gesendet werden können.</p>
+            
+            <h2>Installation</h2>
+            
+            <h3>Forken</h3>
+                <p>Erstelle eine Fork in deinem Github Account, dazu einfach oben rechts auf “Fork” klicken.</p>
+                <p><img src="http://upload.oppisoft.de/x/EP1I21qdslpMYb2LKFbFY.png" alt="Fork erstellen"></p>
+                <h3>Secrets zur Anmeldung erstellen</h3>
+                <p>Lege ein <a href="/settings/secrets/actions">Secret</a> mit dem Namen CREDENTIALS_JSON mit dem Inhalt:</p>
+                <pre class="hljs language-json"><code>    {
+                    <span class="hljs-attr">&quot;host&quot;</span>: <span class="hljs-string">&quot;deine-schule.de/iserv/&quot;</span>,
+                    <span class="hljs-attr">&quot;username&quot;</span>: <span class="hljs-string">&quot;VORNAME.NACHNAME&quot;</span>,
+                    <span class="hljs-attr">&quot;password&quot;</span>: <span class="hljs-string">&quot;DEINPASSWORT&quot;</span>,
+                    <span class="hljs-attr">&quot;discord_webhook&quot;</span>: <span class="hljs-string">&quot;https://discord.com/api/webhooks/SERVERID/XXXXXXXX&quot;</span>
+                    }
+                </code></pre>
+                <p>an, und kopiere in das Secret Feld, dann solltest du…</p>
+                <ul>
+                    <li>Deine IServ Adresse (ohne https://) <code>&quot;deine-schule.de/iserv/&quot;</code></li>
+                    <li>Deinen IServ Benutzernamen (Es kann sein das dies nicht überall vorname.nachname ist. ) <code>&quot;VORNAME.NACHNAME&quot;</code></li>
+                    <li>Deinen IServ Passwort: <code>&quot;DEINPASSWORT&quot;</code></li>
+                    <li>Und deinen Discord Webhook: <code>&quot;https://discord.com/api/webhooks/SERVERID/XXXXXXXX&quot;</code> <a href="https://support.discord.com/hc/de/articles/228383668-Einleitung-in-Webhooks">Hilfe zu Discord-Webhooks</a></li>
+                </ul>
+                <p>… anpassen <strong>hiermit verstößt man je nach Schule gegen die Nutzungsrichtlinien, da du so dein Passwort “Teilst”</strong></p>
+                <p><a href="https://docs.github.com/de/actions/reference/encrypted-secrets">Hilfe zu Secrets</a></p>
+            
+            <h3>Fertig</h3>
+                <p>Jetzt wird mit hilfe von <a href="https://docs.github.com/de/actions/using-github-hosted-runners/about-github-hosted-runnersS">GitHub Runnern</a> alle 15 Minuten das Pythonskript ausgeführt.
+                Die Änderungen durch das Skript werden automatisch mit deinem GitHub Secret verschlüsselt gespeichert, und beim nächsten Ausführen wieder entschlüsselt.</p>
+            
+            <h1>Vorgehensweise</h1>
+                <p>Das Projekt ist in Zusammenhang mit einem Schulprojekt an der <a href="https://www.fls-hi.de/">Friedrich-List-Schule</a> entstanden, und wurde teils in der Schule und, teils zu Hause von mir geschrieben.</p>
+            <h2>Die Idee</h2>
+                <p>Meine Idee war, mithilfe eines Python Scripts die Aufgaben aus dem IServ Aufgaben Modul an Drittanbieter zu senden.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Vorteile</th>
+                        <th>Kritikpunkte</th>
+                    </tr>
+                    </thead>
+                <tbody>
+                    <tr>
+                        <td>Es ist so einfacher den Überblick zu Behalten</td>
+                        <td>Die Daten werden mit dritten wie z.B. Discord oder GitHub geteilt.</td>
+                    </tr>
+                        <tr>
+                        <td>Mit GitHub kann das Projekt ohne extreme Kenntnisse <strong>kostenlos</strong> gehostet werden</td>
+                        <td>Die Daten werden zwar verschlüsselt, und gelöscht nach der Abfrage aber die Secrets zum Entschlüsseln hat GitHub auch.</td>
+                    </tr>
+                    <tr>
+                        <td>Kostenlos - Ein GitHub Konto ist kostenlos, so bekommt jeder die Möglichkeit das Programm z.B. automatisch alle 15 Minuten auf Microsofts Servern laufen zu lassen.</td>
+                        <td>Im falle eines Hackes oder Leakes der <strong>credentials.json</strong> oder dem <strong>CREDENTIALS_JSON</strong> Secret können alle Daten (auch alte) entschlüsselt werden.</td>
+                    </tr>
+                        <tr>
+                        <td>OpenSource -</td>
+                        <td>Je nach Schule verstößt man so gegen die Nutzungsverträge die man ggf. unterschrieben hat.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3>Warum werden nur so wenig Infos gesendet?</h3>
+            <p>Das ist Absicht, die Schulplattformen wie IServ gibt es nicht ohne Grund. Die IServ Server laufen meist auf Servern der Schulen und werden dementsprechend nicht mit dritten geteilt. Das Schützt die Privatsphäre. Mir ist Privatsphäre wichtig daher werden Informationen wie Anhänge/ Dateien der Aufgaben oder weitere Informationen nicht mit gesendet.</p>
+            <p>Ein großes Problem bleibt aber weiter bestehen, und zwar das man die Zugangsdaten zu seinem IServ Account mit GitHub “teilt”. Kostenlos hat halt auch immer seine Nachteile. Daher ist ein Docker-Image in Planung, welches man dann mit nur einem Befehl zum Laufen bringen kann (vorausgesetzt <a href="https://www.docker.com/">Docker</a> ist installiert.)</p>
+            
+            <h2>Abhängigkeiten</h2>
+                <p>Ich habe Abhängikeiten wie:</p>
+                <ul>
+                    <li><a href="https://docs.python.org/3/library/json.html">json</a></li>
+                    <li><a href="https://docs.python.org/3/library/csv.html">csv</a></li>
+                    <li><a href="https://docs.python.org/3/library/os.html">os</a></li>
+                    <li><a href="https://docs.python.org/3/library/hashlib.html">hashlib</a></li>
+                    <li><a href="https://docs.python.org/3/library/sys.html">sys</a></li>
+                    <li><a href="https://docs.python.org/3/library/base64.html">base64</a></li>
+                    <li><a href="https://docs.python.org/3/library/collections.html#collections.OrderedDict">OrderedDict</a></li>
+                    <li><a href="https://docs.python.org/3/library/shutil.html">shutil</a></li>
+                </ul>
+                <p>und die Python Pakete:</p>
+                <ul>
+                    <li><a href="https://pypi.org/project/requests/">requests</a>
+                <ul>
+                    <li><a href="https://docs.python-requests.org/en/master/"><strong>Requests</strong></a> habe ich genutzt, um <a href="https://de.wikipedia.org/wiki/Hypertext_Transfer_Protocol">HTTP</a>-Anfragen zu Senden um so mit den Webservern von unserem Schul-IServ und z.B Discord komunizieren zu können.</li>
+                </ul>
+                    </li>
+                    <li><a href="https://pypi.org/project/cryptography/">cryptography (Fernet)</a>
+                <ul>
+                    <li><a href="https://cryptography.io/en/latest/fernet/"><strong>Fernet</strong></a> habe ich genutzt, um die Daten die gespeichert bleiben sollen zu verschlüsseln.
+                <ul>
+                    <li>Die Daten werden verschlüsselt um diese dann mithilfe eines Git-Commits auf GitHub (öffentlich, aber ja dann verschlüsselt) hochzuladen.</li>
+                    <li>Hochgeladen werden sie damit sie später wieder verwendet werden können. Um die gleiche Benachrichtigung  nicht zweimal zu senden.</li>
+                </ul>
+                    </li>
+                </ul>
+                    </li>
+                </ul>
+            <h2>Vorgehen</h2>
+                <p>Ich habe als ich die Idee hatte, habe ich den HTTP-Traffic zwischen IServ und dem Browser mit <a href="https://portswigger.net/burp">Burp Suite</a> angeschaut. Und mir Notizen über Request Header und Body gemacht,
+                sodass ich später HTTP-Anfragen mithilfe von dem <a href="https://pypi.org/project/requests/">Python Paketes “requests”</a> nachstellen kann.</p>
+                <p>Ich bin nach dem <strong>Code and Fix</strong> Vorgehensmodell vorgegangen,
+                welches recht chaotisch aber für mich intuitiv war da ich so in der Vergangenheit auch in Programmierprojekten so vorgegangen bin.</p>
+                <h2>Fazit</h2>
+                <p>Ich bin mit dem Projekt zufrieden, aber es gibt sicher noch vieles was verbessert werden kann dazu zählen zum Beispiel: Eine Bessere Verschlüsselung, eine einfachere Installation, oder übersichtlicherer Code.</p>
+            
+            <h2>Quellen</h2>
+                <p>Die Quellen zu den Hilfeartikeln sind alle direkt verlinkt, aber hier noch einmal zusammengefasst.</p>
+                <h3>Aufgerufen am 6/13/2021</h3>
+                <ul>
+                <li>
+            
+                <p>Hilfeseiten</p>
+                    <ul>
+                        <li><a href="https://docs.github.com/de/actions/reference/encrypted-secrets">Hilfe zu Secrets</a></li>
+                        <li><a href="https://iserv.de/portal/zielgruppen">IServ</a></li>
+                        <li><a href="https://iserv.de/doc/modules/exercise/">IServ Aufgaben Modul</a></li>
+                        <li><a href="https://www.dev-insider.de/was-ist-ein-webhook-a-996681/">Webhooks Erklärung</a></li>
+                        <li><a href="https://support.discord.com/hc/de/articles/228383668-Einleitung-in-Webhooks">Discord Webhooks</a></li>
+                        <li><a href="https://docs.docker.com/">Docker</a></li>
+                        </ul>
+                        </li>
+                    <li>
+                <p>Python Abhängikkeiten</p>
+                    <ul>
+                        <li><a href="https://docs.python.org/3/library/json.html">json</a></li>
+                        <li><a href="https://docs.python.org/3/library/csv.html">csv</a></li>
+                        <li><a href="https://docs.python.org/3/library/os.html">os</a></li>
+                        <li><a href="https://docs.python.org/3/library/hashlib.html">hashlib</a></li>
+                        <li><a href="https://docs.python.org/3/library/sys.html">sys</a></li>
+                        <li><a href="https://docs.python.org/3/library/base64.html">base64</a></li>
+                        <li><a href="https://docs.python.org/3/library/collections.html#collections.OrderedDict">OrderedDict</a></li>
+                        <li><a href="https://docs.python.org/3/library/shutil.html">shutil</a></li>
+                        </ul>
+                        </li>
+                    <li>
+                <p>Python Pakete</p>
+                    <ul>
+                        <li><a href="https://pypi.org/project/requests/">requests</a></li>
+                        <li><a href="https://pypi.org/project/cryptography/">cryptography (Fernet)</a></li>
+                        </ul>
+                        </li>
+                    <li>
+                <p>Software</p>
+                    <ul>
+                        <li>Verwendete Programmiersprache <a href="https://www.python.org/">Python</a></li>
+                        <li>Containervirtualisierung <a href="https://www.docker.com/">Docker</a></li>
+                        <li>Netzwerkanalyse-Werkzeugkasten <a href="https://portswigger.net/burp">Burp Suite</a></li>
+                        </ul>
+                        </li>
+                    <li>
+                <p>Sonstige</p>
+                    <ul>
+                        <li>HTML der Dokumentation erstellt mit der <a href="https://docs.github.com/en/rest/reference/markdown">GitHub Markdown API</a></li>
+                        <li>CSS der Dokumentation: <a href="https://github.com/primer/css/tree/main/src/markdown">Primer CSS</a></li>
+                        <li><a href="https://de.wikipedia.org/wiki/Hypertext_Transfer_Protocol">HTTP</a></li>
+                        <li>Die Schule auf die ich gehe: <a href="https://www.fls-hi.de/">Friedrich-List-Schule</a></li>
+                        </ul>
+                        </li>
+                    </ul>
+        </div>
+    </body>
+</html>
