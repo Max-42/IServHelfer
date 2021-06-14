@@ -57,10 +57,7 @@ jobs:
             - Changes in Storage
           labels: |
             automated
-          assignees: max-42
-          team-reviewers: |
-            owners
-            maintainers
+
           draft: false
 
     - name: Check outputs
