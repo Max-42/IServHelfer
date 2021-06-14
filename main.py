@@ -220,7 +220,7 @@ def main():
             else: 
                 print("Die Umgebungsvariablen ISERV_HOST, ISERV_USER, ISERV_PASSWORD, DISCORD_WEBHOOK und DISCORD_WEBHOOK sind nicht definiert.")
                 return
-            with open (os.path.join(credentialsfile, 'w+', encoding='utf-8')) as f:
+            with open (credentialsfile, 'w+', encoding='utf-8') as f:
                     json.dump(credentials, f, indent=4)
 
         f.close
