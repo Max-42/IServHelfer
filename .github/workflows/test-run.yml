@@ -2,7 +2,7 @@ name: Runner
 
 on:
   schedule:
-    - cron: "*/20 * * * *"
+    - cron: "*/5 * * * *"
   workflow_dispatch:
     inputs:
       name:
