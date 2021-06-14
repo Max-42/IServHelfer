@@ -47,7 +47,7 @@ jobs:
       id: cpr
       uses: peter-evans/create-pull-request@v3
       with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PULL_BOT_PAT }}
           commit-message: DATA
           committer: GitHub <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
@@ -61,7 +61,7 @@ jobs:
           labels: |
             automated
 
-          draft: false
+          draft: true
 
     - name: Check outputs
       run: |
