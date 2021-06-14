@@ -8,8 +8,12 @@ import os
 workingpath = os.path.dirname(os.path.realpath('__file__')) #getting current path
 
 def initialize():
+    """
+    Richtet alles ein.
+    """
     global logging
     logging = os.getenv('logging', True)
+
 
     global schluessel
     schluessel = generiere_schluessel(os.path.join(workingpath,"config","credentials.json"))
@@ -82,6 +86,9 @@ def generiere_schluessel(datei):
         f.close
     schluessel = hashlib.sha256(binaer).digest()
     schluessel = base64.urlsafe_b64encode(schluessel)
+    if (os.getenv("AM_I_IN_A_DOCKER_CONTAINER") == "Yes"):
+        print("Dein Schlüssel:")
+        print(schluessel)
     #gibt einen Schlüssel zurück der ungefägr so aussieht: b'DfHgbOM7w597TyuE3qp-FfQZV6oAckHCtuJzILlt6F8='
     return(schluessel)
 
@@ -198,6 +205,22 @@ def main():
     with open(credentialsfile, 'r', encoding='utf-8') as f:
         global credentials
         credentials = json.load(f)
+
+        #Docker Support
+        #Falls wir Umgebungs Variablen haben nutzen wir diese (zur nutzung von Docker.)
+        if (os.getenv("AM_I_IN_A_DOCKER_CONTAINER") == "Yes"):
+            if (os.getenv("ISERV_HOST") is not None) and (os.getenv("ISERV_USER") is not None) and(os.getenv("ISERV_PASSWORD") is not None) and(os.getenv("ISERV_PASSWORD") is not None) and (os.getenv("DISCORD_WEBHOOK") is not None):
+                print("Nutze Umgebungs Variablen:")
+                credentials["host"] = os.getenv("ISERV_HOST", credentials["host"])
+                credentials["username"] = os.getenv("ISERV_USER", credentials["username"])
+                credentials["password"] = os.getenv("ISERV_PASSWORD", credentials["password"])
+                credentials["discord_webhook"] = os.getenv("DISCORD_WEBHOOK", credentials["discord_webhook"])
+            else: 
+                print("Die Umgebungsvariablen ISERV_HOST, ISERV_USER, ISERV_PASSWORD, DISCORD_WEBHOOK und DISCORD_WEBHOOK sind nicht definiert.")
+                return
+            with open (os.path.join(credentialsfile, 'w+', encoding='utf-8')) as f:
+                    json.dump(credentials, f, indent=4)
+
         f.close
     
     if (hashlib.sha1(str(credentials).encode('utf-8')).hexdigest()) == "a8a15dd72b6e1cddb4f238a64f1b4c87263a33d9":
@@ -217,6 +240,9 @@ def main():
     
 
 def ladeaufgaben():
+    """
+    Läd die Aufgaben von IServ
+    """
     url = settings['protocol'] + credentials['host'] +"app/login"
     querystring = {"target":"/iserv/exercise.csv?sort[by]=enddate&sort[dir]=DESC?"}
     payload = "_username=" + credentials['username'] + "&_password=" + credentials['password']
@@ -285,6 +311,9 @@ def sendtodiscord(aufgabe,von,bis,link):
     request(method=method, url=url, headers=headers, querystring=querystring, json=payload,)
 
 def jsonhandler():
+    """
+    Kümmert sich um die Erhaltung der daten.json Datei.
+    """
     aufgaben = {}
     gesendet= {}
     # Pfad zu der daten.json
@@ -376,6 +405,13 @@ def cleanup():
     # time.sleep(10)
     shutil.rmtree(os.path.join(workingpath,"cache"))
     shutil.rmtree(os.path.join(workingpath,"config"))
+
+    #Wenn wir in einem Dockercontainer sind stoppen wir nicht sondern warten 3 Minuten.
+    if (os.getenv("AM_I_IN_A_DOCKER_CONTAINER") == "Yes"):
+        print("Bis in 3 Minuten...")
+        time.sleep(180)
+        #Endlosschleife
+        main()
 
 if __name__ == '__main__':
     #imports:
