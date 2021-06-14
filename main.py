@@ -18,8 +18,10 @@ def initialize():
     global schluessel
     schluessel = generiere_schluessel(os.path.join(workingpath,"config","credentials.json"))
 
-    atexit.register(verschluessele_pfad ,"cache","speicher",schluessel)
-    
+    try:
+        atexit.register(verschluessele_pfad ,"cache","speicher",schluessel)
+    except(Exception):pass
+
     #wenn schon Daten gespeichert worden sind werden diese entschlüsselt.
     if(os.path.isfile(os.path.join(workingpath,"speicher","aufgaben.json"))):
         entschluessele_pfad("speicher","cache",schluessel)
