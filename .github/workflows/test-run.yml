@@ -1,6 +1,8 @@
-name: Manual Test-Run
+name: Runner
 
 on:
+  schedule:
+    - cron: "*/20 * * * *"
   workflow_dispatch:
     inputs:
       name:
