@@ -3,8 +3,7 @@
 
 ![Logo](https://upload.oppisoft.de/x/Kry3WJ08fNuGY1ZX2Wm8R.svg)
 
-[![Python application](https://github.com/Max-42/IServHelfer/actions/workflows/python-app.yml/badge.svg)](https://github.com/Max-42/IServHelfer/actions/workflows/python-app.yml)
-[![CodeQL](https://github.com/Max-42/IServHelfer/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Max-42/IServHelfer/actions/workflows/codeql-analysis.yml)
+[![Letzter Lauf](https://github.com/Max-42/IServHelfer/actions/workflows/test-run.yml/badge.svg)](https://github.com/Max-42/IServHelfer/actions/workflows/test-run.yml)
 
 ## Was ist der "IServ Helfer"?
 
