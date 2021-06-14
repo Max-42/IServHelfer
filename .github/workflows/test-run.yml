@@ -52,7 +52,7 @@ jobs:
           committer: GitHub <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           signoff: false
-          branch: main
+          branch: runner
           delete-branch: true
           title: '[UPDATED DATA] Encrypted data update'
           body: |
