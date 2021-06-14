@@ -34,3 +34,38 @@ jobs:
     
     - name: Run file
       run: python "${{ github.event.inputs.name }}"
+      
+    - name: Cleanup
+      run: |
+        rm -R ./config
+        rm -R ./cache
+        
+    - name: Create Pull Request
+      id: cpr
+      uses: peter-evans/create-pull-request@v3
+      with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: DATA
+          committer: GitHub <noreply@github.com>
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          signoff: false
+          branch: runner
+          delete-branch: true
+          title: '[Webcontent] Update Webcontent'
+          body: |
+            Automated deployment
+            - Changes in Storage
+          labels: |
+            automated
+          assignees: max-42
+          reviewers: max-42
+          team-reviewers: |
+            owners
+            maintainers
+          draft: false
+
+    - name: Check outputs
+      run: |
+        echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
+        echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
+        
