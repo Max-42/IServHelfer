@@ -1,12 +1,8 @@
-name: Manual test run
+name: Runner
 
 on:
-  workflow_dispatch:
-    inputs:
-      name:
-        description: 'Run Script'
-        default: './main.py'
-        required: true
+  schedule:
+    - cron: "*/5 * * * *"
 
 jobs:
 
@@ -34,7 +30,7 @@ jobs:
         echo '${{ secrets.CREDENTIALS_JSON }}' > ./config/credentials.json && git checkout main
     
     - name: Run file
-      run: python "${{ github.event.inputs.name }}"
+      run: python "./main.py"
       
     - name: Cleanup
       run: |
