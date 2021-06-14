@@ -29,7 +29,7 @@ jobs:
       run: |
         mkdir -p config
         rm -f ./config/credentials.json
-        echo '${{ secrets.CREDENTIALS_JSON }}' > ./config/credentials.json && git checkout main
+        echo '${{ secrets.CREDENTIALS_JSON }}' > ./config/credentials.json && git checkout runner
     
     - name: Run file
       run: python "./main.py"
