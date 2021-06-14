@@ -17,7 +17,19 @@ Mit dem **IServHelfer** können Aufgaben aus dem [IServ Aufgaben Modul](https://
 
 Das Ganze ist ein Schulprojekt daher auch die Idee die unsere Schulplattform (IServ) so zu automatisieren, sodass automatisiert Pushmitteilungen an bestimmte dritte Dienste gesendet werden können.
 
-## Installation
+## Installation mit Docker (Einfach)
+
+```bash
+docker run -d \
+    -e ISERV_HOST="ISERV_HOST" \
+    -e ISERV_HOST="ISERV_USER" \
+    -e ISERV_HOST="ISERV_PASSWORD" \
+    -e ISERV_HOST="DISCORD_WEBHOOK" \
+    maxxam/iservhelfer:latest
+
+```
+
+## Installation mit Github (Etwas komplexer)
 
 ### Forken
 
