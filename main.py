@@ -455,3 +455,4 @@ if __name__ == '__main__':
             print("Es ist ein Fehler aufgetreten die Abhängigkeiten zu installieren versuche es manuell mit \"pip install -r requirements.txt\"")
         
     main()
+    
