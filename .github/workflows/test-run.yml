@@ -51,14 +51,13 @@ jobs:
           signoff: false
           branch: runner
           delete-branch: true
-          title: '[Webcontent] Update Webcontent'
+          title: '[UPDATED DATA] Encrypted data update'
           body: |
             Automated deployment
             - Changes in Storage
           labels: |
             automated
           assignees: max-42
-          reviewers: max-42
           team-reviewers: |
             owners
             maintainers
