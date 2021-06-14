@@ -40,8 +40,8 @@ jobs:
       
     - name: Cleanup
       run: |
-        rm -R ./config
-        rm -R ./cache
+        rm -R -f ./config
+        rm -R -f ./cache
         
     - name: Create Pull Request
       id: cpr
