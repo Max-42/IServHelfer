@@ -2,7 +2,7 @@ name: Runner
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "*/20 * * * *"
 
 jobs:
 
@@ -29,8 +29,8 @@ jobs:
       run: |
         mkdir -p config
         rm -f ./config/credentials.json
-        echo '${{ secrets.CREDENTIALS_JSON }}' > ./config/credentials.json && git checkout main
-    
+        echo '${{ secrets.CREDENTIALS_JSON }}' > ./config/credentials.json
+  
     - name: Run file
       run: python "./main.py"
       
@@ -48,7 +48,7 @@ jobs:
           committer: GitHub <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           signoff: false
-          branch: runner
+          branch: runner2
           delete-branch: true
           title: '[UPDATED DATA] Encrypted data update'
           body: |
