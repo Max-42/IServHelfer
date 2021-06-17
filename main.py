@@ -415,7 +415,6 @@ def cleanup():
         print("Bis in 3 Minuten...")
         time.sleep(180)
         #Endlosschleife
-        main()
 
 if __name__ == '__main__':
     #imports:
